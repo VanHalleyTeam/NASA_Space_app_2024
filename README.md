@@ -6,7 +6,7 @@ Luego ejecutar:
 
 `git clone https://github.com/VanHalleyTeam/NASA_Space_app_2024.git .`
 
-#s# Crear entornos
+## Crear entornos
 ### En windows
 #### Crear entorno venv
 `python -m venv venv`
