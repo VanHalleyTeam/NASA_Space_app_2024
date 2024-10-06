@@ -331,6 +331,20 @@ def change_range():
     print("Nuevo rango de ejes:", axis_range)  # Imprimir el nuevo rango
     return jsonify({'axis_range': axis_range})  # Devolver el nuevo rango
 
+@app.route('/eliminar_planeta', methods=['POST'])
+def eliminar_planeta():
+    # Obtener el nombre del planeta a eliminar
+    nombre_eliminar = request.form.get('nombre_eliminar')
+    
+    # Eliminar el planeta del diccionario
+    if nombre_eliminar in cuerpos:
+        del cuerpos[nombre_eliminar]
+        print(f"Planeta '{nombre_eliminar}' eliminado.")
+    else:
+        print(f"El planeta '{nombre_eliminar}' no existe.")
+
+    # Redirigir a la página principal después de eliminar
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
