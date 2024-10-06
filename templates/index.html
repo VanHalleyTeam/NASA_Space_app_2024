@@ -14,7 +14,12 @@
 
   <!-- Botón para desplegar el formulario -->
   <button class="toggle-button" onclick="toggleForm()">
-    Agregar nuevo cuerpo
+    Add new celestial body
+  </button>
+
+  <!-- Botón para cambio de range -->
+  <button class="toggle-button" onclick="toggleRange()">
+    Change Axis Range
   </button>
 
   <!-- Formulario para agregar un nuevo cuerpo -->
@@ -86,6 +91,29 @@
       formulario.classList.remove("show");
     }
   </script>
+
+  <script>
+    function toggleRange() {
+      fetch('/change_range', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Nuevo rango de ejes:', data.axis_range);
+          // Aquí puedes agregar la lógica para actualizar el gráfico Plotly con el nuevo rango
+          // Ejemplo de actualización del rango de los ejes en Plotly:
+          Plotly.relayout('tu-id-de-grafico', {
+            'xaxis.range': data.axis_range,
+            'yaxis.range': data.axis_range
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
+
 </body>
 
 </html>

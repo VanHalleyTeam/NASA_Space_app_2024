@@ -4,7 +4,7 @@ import csv
 import json
 import plotly.graph_objects as go
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -140,11 +140,8 @@ def generar_orbita_completa(a, e, I, omega, long_node):
     coords_orbita = np.array(coords_orbita)
     return coords_orbita[:, 0], coords_orbita[:, 1], coords_orbita[:, 2]
 
-def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas):
+def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas, axis_range):
     fig = go.Figure()
-
-    # Definir el rango para los ejes
-    axis_range = [-20, 20]
 
     # Escala de diámetros para los planetas (ajustado manualmente)
     diametros = {
@@ -239,7 +236,8 @@ def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas):
     return fig.to_html(full_html=False)
 
 
-
+# Definir el rango para los ejes como una variable global
+axis_range = [-20, 20]
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -320,10 +318,19 @@ def index():
         orbit_x, orbit_y, orbit_z = generar_orbita_completa(a, e, I, long_peri, long_node)
         orbitales[nombre] = (orbit_x, orbit_y, orbit_z)
 
+
     # Generar la figura
-    figura_html = plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas)
+    figura_html = plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas, axis_range)
 
     return render_template('index.html', figura=figura_html)
 
+@app.route('/change_range', methods=['POST'])
+def change_range():
+    global axis_range  # Usar la variable global
+    axis_range = [-500, 500]  # Cambiar directamente a [-500, 500]
+    print("Nuevo rango de ejes:", axis_range)  # Imprimir el nuevo rango
+    return jsonify({'axis_range': axis_range})  # Devolver el nuevo rango
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)
