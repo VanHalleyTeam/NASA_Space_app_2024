@@ -20,9 +20,9 @@
   <!-- Botón para cambiar la escala a 20x20x20 -->
   <button onclick="cambiarEscala(20)">Cambiar a 20x20x20</button>
 
-  <!-- Botón para cambiar la escala a 400x400x400 -->
-  <button onclick="cambiarEscala(400)">Cambiar a 400x400x400</button>
-  
+  <!-- Botón para cambiar la escala a 1500x1500x1500 -->
+  <button onclick="cambiarEscala(1500)">Cambiar a 1500x1500x1500</button>
+
   <!-- Formulario para agregar un nuevo cuerpo -->
   <div id="formulario">
     <!-- Botón para cerrar el formulario -->
@@ -90,24 +90,24 @@
     }
   </script>
 
-<script>
-  function cambiarEscala(escala) {
+  <script>
+    function cambiarEscala(escala) {
       fetch('/change_range', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 'escala': escala })
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'escala': escala })
       })
-      .then(response => response.json())
-      .then(data => {
+        .then(response => response.json())
+        .then(data => {
           // Aquí se actualiza el div que contiene el gráfico con el nuevo gráfico recibido
-          document.getElementById('grafico').innerHTML = data.figura; 
+          document.getElementById('grafico').innerHTML = data.figura;
           console.log('Nuevo gráfico recibido. Actualizando la visualización...');
-      })
-      .catch(error => console.error('Error al cambiar la escala:', error));
-  }
-</script>
+        })
+        .catch(error => console.error('Error al cambiar la escala:', error));
+    }
+  </script>
 </body>
 
 </html>

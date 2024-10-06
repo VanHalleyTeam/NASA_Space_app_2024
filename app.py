@@ -335,8 +335,8 @@ def change_range():
     
     if escala_seleccionada == 20:
         axis_range = [-20, 20]
-    elif escala_seleccionada == 400:
-        axis_range = [-400, 400]
+    elif escala_seleccionada == 1500:
+        axis_range = [-1500, 1500]
 
     # Recalcular la figura para la nueva escala
     parametros_orbitales = cargar_parametros_desde_json('parametros_orbitales.json')
