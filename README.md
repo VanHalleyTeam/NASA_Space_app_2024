@@ -3,9 +3,10 @@
 ## Descargar proyecto con git
 Crear carpeta vacia en donde descargar el proyecto
 Luego ejecutar:
-`git clone https://github.com/ekunysz/NASA_Space_app_2024.git .`
 
-#s# Crear entornos
+`git clone https://github.com/VanHalleyTeam/NASA_Space_app_2024.git .`
+
+## Crear entornos
 ### En windows
 #### Crear entorno venv
 `python -m venv venv`
