@@ -324,12 +324,42 @@ def index():
 
     return render_template('index.html', figura=figura_html)
 
+axis_range = [-20, 20]  # Rango por defecto
+
 @app.route('/change_range', methods=['POST'])
 def change_range():
     global axis_range  # Usar la variable global
-    axis_range = [-500, 500]  # Cambiar directamente a [-500, 500]
-    print("Nuevo rango de ejes:", axis_range)  # Imprimir el nuevo rango
-    return jsonify({'axis_range': axis_range})  # Devolver el nuevo rango
+
+    # Obtener la escala seleccionada desde la solicitud POST
+    escala_seleccionada = request.json.get('escala', 20)  # Valor por defecto es 20
+    
+    if escala_seleccionada == 20:
+        axis_range = [-20, 20]
+    elif escala_seleccionada == 400:
+        axis_range = [-400, 400]
+
+    # Recalcular la figura para la nueva escala
+    parametros_orbitales = cargar_parametros_desde_json('parametros_orbitales.json')
+    cuerpos = crear_planetas_desde_json(parametros_orbitales)
+    cometas, nombres_cometas = cargar_cometas_desde_csv('comets.csv')
+    cuerpos.update(cometas)
+    
+    cuerpos_cartesianos = {}
+    orbitales = {}
+
+    fecha = datetime.now()
+    
+    for nombre, cuerpo in cuerpos.items():
+        a, e, I, L, long_peri, long_node = calcular_elementos(cuerpo, fecha)
+        coords = kepler_to_cartesian(a, e, I, L, long_peri, long_node, nu=0)
+        cuerpos_cartesianos[nombre] = coords
+        orbit_x, orbit_y, orbit_z = generar_orbita_completa(a, e, I, long_peri, long_node)
+        orbitales[nombre] = (orbit_x, orbit_y, orbit_z)
+
+    # Generar la figura actualizada
+    figura_html = plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas, axis_range)
+    
+    return jsonify({'figura': figura_html})  # Asegúrate de que 'figura_html' sea el HTML que representa el gráfico
 
 
 if __name__ == '__main__':
