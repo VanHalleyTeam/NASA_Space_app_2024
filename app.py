@@ -143,41 +143,75 @@ def generar_orbita_completa(a, e, I, omega, long_node):
 def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas):
     fig = go.Figure()
 
-    # Definir el rango para los ejes (ajustar estos valores según tus datos)
-    axis_range = [-100, 100]  # Por ejemplo, -30 a 30 AU. Ajusta según tus planetas
+    # Definir el rango para los ejes
+    axis_range = [-20, 20]
 
-    # Añadir el Sol
-    fig.add_trace(go.Scatter3d(x=[0], y=[0], z=[0],
-                                 mode='markers',
-                                 marker=dict(size=10, color='yellow'),
-                                 name='Sol'))
+    # Escala de diámetros para los planetas (ajustado manualmente)
+    diametros = {
+        'Mercurio': 3.8 * (1/109),
+        'Venus': 9.5 * (1/109),
+        'Tierra': 10.0 * (1/109),
+        'Marte': 5.3 * (1/109),
+        'Jupiter': 54.85 * (1/109),
+        'Saturno': 45.7 * (1/109),
+        'Urano': 39.8 * (1/109),
+        'Neptuno': 38.6 * (1/109),
+    }
 
-    # Definir los colores
-    color_planeta = 'green'  # Color para los planetas
-    color_cometa = 'rgba(255, 0, 0, 0.5)'  # Color rojo con opacidad
+    # Colores reales de los planetas
+    colores_planetas = {
+        'Mercurio': 'gray',
+        'Venus': 'palegoldenrod',
+        'Tierra': 'blue',
+        'Marte': 'red',
+        'Jupiter': 'peru',
+        'Saturno': 'khaki',
+        'Urano': 'lightseagreen',
+        'Neptuno': 'darkblue',
+    }
 
-    # Añadir planetas y sus órbitas
+    # Función para crear una esfera
+    def crear_esfera(x_center, y_center, z_center, radius, resolution=50):
+        u = np.linspace(0, 2 * np.pi, resolution)
+        v = np.linspace(0, np.pi, resolution)
+        x = radius * np.outer(np.cos(u), np.sin(v)) + x_center
+        y = radius * np.outer(np.sin(u), np.sin(v)) + y_center
+        z = radius * np.outer(np.ones(np.size(u)), np.cos(v)) + z_center
+        return x, y, z
+
+    # Ajustar la escala de los radios para que las esferas sean más realistas
+    escala_radio = 0.1  # Ajuste general para que los tamaños sean visibles pero proporcionales
+
+    # Añadir el Sol como esfera
+    sol_x, sol_y, sol_z = crear_esfera(0, 0, 0, radius=1 * escala_radio)  # Tamaño ajustado del Sol
+    fig.add_trace(go.Surface(x=sol_x, y=sol_y, z=sol_z, colorscale=[[0, 'yellow'], [1, 'yellow']], 
+                             name='Sol', showscale=False, 
+                             lighting=dict(ambient=0.8, specular=0.3, roughness=0.9)))
+
+    # Añadir planetas con efectos de iluminación
     for nombre, coords in cuerpos_cartesianos.items():
-        # Asegurarse de que coords sea un array
+        # Obtener las coordenadas actuales del planeta
         x, y, z = coords
-    
-        # Determinar el color según el nombre del cuerpo celeste
-        if nombre in nombres_cometas:  # Si el nombre está en la lista de nombres de cometas
-            color = color_cometa
-        else:
-            color = color_planeta  # Si no, es un planeta
 
-        # Añadir el cuerpo celeste    
-        fig.add_trace(go.Scatter3d(x=[x], y=[y], z=[z],
-                                     mode='markers',
-                                     marker=dict(size=5),
-                                     name=nombre))
+        # Determinar el color según el nombre del cuerpo celeste
+        color_planeta = colores_planetas.get(nombre, 'green')  # Usar color real del planeta o verde por defecto
+        radius = diametros.get(nombre, 1) * escala_radio  # Escalar el tamaño según el diámetro del planeta
+
+        # Añadir el planeta como esfera con sombras y luces
+        planeta_x, planeta_y, planeta_z = crear_esfera(x, y, z, radius=radius)
+        fig.add_trace(go.Surface(x=planeta_x, y=planeta_y, z=planeta_z, 
+                                 colorscale=[[0, color_planeta], [1, color_planeta]], 
+                                 name=nombre,
+                                 showscale=False,
+                                 lighting=dict(ambient=0.1, diffuse=0.9, roughness=0.35, specular=0.3),
+                                 lightposition=dict(x=0, y=0, z=0)))  # El Sol en el origen
+
         # Añadir la órbita
         orbit_x, orbit_y, orbit_z = orbitales[nombre]
         fig.add_trace(go.Scatter3d(x=orbit_x, y=orbit_y, z=orbit_z,
                                      mode='lines',
                                      name=f'Órbita de {nombre}',
-                                     line=dict(width=2, dash='dot', color=color)))  # Usar el mismo color
+                                     line=dict(width=2, dash='dot', color=color_planeta)))
 
     # Configurar el layout para tener fondo negro y líneas blancas
     fig.update_layout(scene=dict(
@@ -198,12 +232,13 @@ def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas):
                                    range=axis_range)
                       ),
                       margin=dict(l=0, r=0, b=0, t=0),
-                      paper_bgcolor='black',  # Fondo general de la gráfica
-                      font_color='white')  # Color del texto
+                      paper_bgcolor='black',
+                      font_color='white')
+                    
 
-
-    # Retornar la figura en formato HTML
     return fig.to_html(full_html=False)
+
+
 
 
 @app.route('/', methods=['GET', 'POST'])
