@@ -6,6 +6,17 @@ body {
   padding: 20px;
 }
 
+.header {
+  display: flex;
+  /* Usar flexbox para alinear los elementos */
+  align-items: center;
+  /* Centrar verticalmente las imágenes y el texto */
+  justify-content: space-between;
+  /* Espacio entre elementos */
+  padding: 10px;
+  /* Espaciado alrededor del contenido */
+}
+
 h1 {
   text-align: center;
   font-size: 2.5em;
@@ -115,10 +126,14 @@ canvas {
 /* Contenedor del formulario en dos columnas */
 .grid-form {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-  gap: 20px; /* Espacio entre las columnas */
-  max-width: 800px; /* Limitar el ancho total del formulario */
-  margin: 0 auto; /* Centrar el formulario horizontalmente */
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas iguales */
+  gap: 20px;
+  /* Espacio entre las columnas */
+  max-width: 800px;
+  /* Limitar el ancho total del formulario */
+  margin: 0 auto;
+  /* Centrar el formulario horizontalmente */
 }
 
 /* Estilo para los inputs y labels */
@@ -126,16 +141,20 @@ canvas {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #ffffff; /* Color blanco para resaltar sobre el fondo oscuro */
+  color: #ffffff;
+  /* Color blanco para resaltar sobre el fondo oscuro */
 }
 
 .grid-form input {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
-  background-color: #333333; /* Fondo oscuro para los inputs */
-  border: 1px solid #555555; /* Bordes suaves */
-  color: #ffffff; /* Texto blanco en los inputs */
+  background-color: #333333;
+  /* Fondo oscuro para los inputs */
+  border: 1px solid #555555;
+  /* Bordes suaves */
+  color: #ffffff;
+  /* Texto blanco en los inputs */
 }
 
 #formulario {
@@ -144,7 +163,8 @@ canvas {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Fondo oscuro */
   z-index: 1000;
   overflow-y: auto;
   transform: translateY(-100%);
@@ -167,7 +187,8 @@ canvas {
   border: none;
   cursor: pointer;
   margin-top: 20px;
-  grid-column: span 2; /* Para que el botón ocupe ambas columnas */
+  grid-column: span 2;
+  /* Para que el botón ocupe ambas columnas */
 }
 
 .form-button:hover {
@@ -190,13 +211,28 @@ canvas {
 
 /* Ajustes generales para mejorar la estética */
 body {
-  background-color: #121212; /* Fondo oscuro para toda la página */
-  color: #ffffff; /* Texto blanco */
+  background-color: #121212;
+  /* Fondo oscuro para toda la página */
+  color: #ffffff;
+  /* Texto blanco */
 }
 
 h1 {
-  color: #ffffff; /* Título en blanco */
+  color: #ffffff;
+  /* Título en blanco */
   text-align: center;
   margin-bottom: 20px;
 }
+
+.team-names {
+  text-align: center;
+  /* Centrar el texto */
+  margin-top: 20px;
+  /* Espacio superior para separar de los botones */
+  font-size: 12px;
+  /* Tamaño de fuente pequeño */
+  color: gray;
+  /* Color de texto gris para un efecto más suave */
+}
+
 /* Añadir más estilos para otros planetas aquí */

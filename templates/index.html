@@ -10,22 +10,23 @@
 </head>
 
 <body>
-  <h1>Orbit Simulator</h1>
-
-  <!-- Contenedor para los botones alineados en fila -->
-  <div class="button-container">
-    <!-- Botón para desplegar el formulario -->
-    <button class="toggle-button" onclick="toggleForm()">Add new celestial body</button>
-
-    <!-- Formulario para cambiar la escala -->
-    <form method="POST" action="/change_range">
-      <!-- Botón para cambiar la escala a 20x20x20 -->
-      <button type="submit" name="escala" value="20">Change to 20x20x20</button>
-
-      <!-- Botón para cambiar la escala a 1500x1500x1500 -->
-      <button type="submit" name="escala" value="1500">Change to 1500x1500x1500</button>
-    </form>
+  <div class="header">
+    <img src="{{ url_for('static', filename='VanHalley.jpg') }}" alt="Imagen izquierda" class="side-image left"
+      width="300">
+    <h1>Orbit Simulator</h1>
+    <img src="{{ url_for('static', filename='nasa.jpeg') }}" alt="Imagen derecha" class="side-image right" width="200">
   </div>
+
+  <!-- Botón para desplegar el formulario -->
+  <button class="toggle-button" onclick="toggleForm()">
+    Add new celestial body
+  </button>
+
+  <!-- Botón para cambiar la escala a 20x20x20 -->
+  <button onclick="cambiarEscala(20)">Change to 20x20x20</button>
+
+  <!-- Botón para cambiar la escala a 1500x1500x1500 -->
+  <button onclick="cambiarEscala(1500)">Change to 1500x1500x1500</button>
 
   <!-- Formulario para agregar un nuevo cuerpo -->
   <div id="formulario">
@@ -93,6 +94,32 @@
       formulario.classList.remove("show");
     }
   </script>
+
+  <script>
+    function cambiarEscala(escala) {
+      fetch('/change_range', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'escala': escala })
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Aquí se actualiza el div que contiene el gráfico con el nuevo gráfico recibido
+          document.getElementById('grafico').innerHTML = data.figura;
+          console.log('Nuevo gráfico recibido. Actualizando la visualización...');
+        })
+        .catch(error => console.error('Error al cambiar la escala:', error));
+    }
+  </script>
+
+  <div class="team-names">
+    <p>Team Members: Yuri Brummel, Inook Valentino Carey, Noelia Curruhuinca Evangelisti, Genaro Trujillo,
+      Joaquin Villada, Eduardo Kunysz
+    </p>
+  </div>
+
 </body>
 
 </html>

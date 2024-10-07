@@ -331,7 +331,7 @@ def change_range():
     global axis_range  # Usar la variable global
 
     # Obtener la escala seleccionada desde la solicitud POST
-    escala_seleccionada = int(request.form.get('escala', 20))  # Valor por defecto es 20
+    escala_seleccionada = request.json.get('escala', 20)  # Valor por defecto es 20
     
     if escala_seleccionada == 20:
         axis_range = [-20, 20]
