@@ -1,5 +1,5 @@
 {
-    "Mercurio": {
+    "Mercury": {
         "a": 0.38709927,
         "a_rate": 0.00000037,
         "e": 0.20563593,
@@ -11,7 +11,8 @@
         "long_peri": 77.45779628,
         "long_peri_rate": 0.16047689,
         "long_node": 48.33076593,
-        "long_node_rate": -0.12534081
+        "long_node_rate": -0.12534081,
+        "mass": 0.33e24
     },
     "Venus": {
         "a": 0.72333199,
@@ -25,9 +26,10 @@
         "long_peri": 131.76759887,
         "long_peri_rate": 0.00268329,
         "long_node": 76.67984255,
-        "long_node_rate": -0.27769418
+        "long_node_rate": -0.27769418,
+        "mass": 4.87e24
     },
-    "Tierra": {
+    "Earth": {
         "a": 1.00000011,
         "a_rate": -0.00000005,
         "e": 0.01671022,
@@ -39,9 +41,10 @@
         "long_peri": 102.94719700,
         "long_peri_rate": 0.32327364,
         "long_node": 0.0,
-        "long_node_rate": 0.0
+        "long_node_rate": 0.0,
+        "mass": 5.97e24
     },
-    "Marte": {
+    "Mars": {
         "a": 1.52366231,
         "a_rate": 0.00000020,
         "e": 0.09341233,
@@ -53,7 +56,8 @@
         "long_peri": 336.04084,
         "long_peri_rate": 0.44441088,
         "long_node": 49.57854,
-        "long_node_rate": -0.29257343
+        "long_node_rate": -0.29257343,
+        "mass": 0.642e24
     },
     "Jupiter": {
         "a": 5.20336301,
@@ -67,9 +71,10 @@
         "long_peri": 14.331309,
         "long_peri_rate": 0.21555250,
         "long_node": 100.55615,
-        "long_node_rate": -0.29498416
+        "long_node_rate": -0.29498416,
+        "mass": 1898e24
     },
-    "Saturno": {
+    "Saturn": {
         "a": 9.53707032,
         "a_rate": -0.00000015,
         "e": 0.05415060,
@@ -81,9 +86,10 @@
         "long_peri": 92.43194,
         "long_peri_rate": 0.12642250,
         "long_node": 113.66242,
-        "long_node_rate": -0.11125251
+        "long_node_rate": -0.11125251,
+        "mass": 568e24
     },
-    "Urano": {
+    "Uranius": {
         "a": 19.19126393,
         "a_rate": 0.00000027,
         "e": 0.04716771,
@@ -95,9 +101,10 @@
         "long_peri": 170.96424,
         "long_peri_rate": -0.00600907,
         "long_node": 74.01620,
-        "long_node_rate": 0.07496459
+        "long_node_rate": 0.07496459,
+        "mass": 86.8e24
     },
-    "Neptuno": {
+    "Neptune": {
         "a": 30.06952752,
         "a_rate": -0.00000048,
         "e": 0.00858587,
@@ -109,6 +116,7 @@
         "long_peri": 44.97135,
         "long_peri_rate": 0.00668250,
         "long_node": 131.78460,
-        "long_node_rate": -0.00667540
+        "long_node_rate": -0.00667540,
+        "mass": 102e24
     }
 }

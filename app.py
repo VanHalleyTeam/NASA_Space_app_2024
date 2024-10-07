@@ -145,26 +145,26 @@ def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas, axis_range):
 
     # Escala de diámetros para los planetas (ajustado manualmente)
     diametros = {
-        'Mercurio': 3.8 * (1/109),
+        'Mercury': 3.8 * (1/109),
         'Venus': 9.5 * (1/109),
-        'Tierra': 10.0 * (1/109),
-        'Marte': 5.3 * (1/109),
+        'Earth': 10.0 * (1/109),
+        'Mars': 5.3 * (1/109),
         'Jupiter': 54.85 * (1/109),
-        'Saturno': 45.7 * (1/109),
-        'Urano': 39.8 * (1/109),
-        'Neptuno': 38.6 * (1/109),
+        'Satur': 45.7 * (1/109),
+        'Uranius': 39.8 * (1/109),
+        'Neptune': 38.6 * (1/109),
     }
 
     # Colores reales de los planetas
     colores_planetas = {
-        'Mercurio': 'gray',
+        'Mercury': 'gray',
         'Venus': 'palegoldenrod',
-        'Tierra': 'blue',
-        'Marte': 'red',
+        'Earth': 'cyan',
+        'Mars': 'red',
         'Jupiter': 'peru',
-        'Saturno': 'khaki',
-        'Urano': 'lightseagreen',
-        'Neptuno': 'darkblue',
+        'Saturn': 'khaki',
+        'Uranius': 'lightseagreen',
+        'Neptune': '#7DF9FF',
     }
 
     # Función para crear una esfera
@@ -207,8 +207,8 @@ def plot_sistema(cuerpos_cartesianos, orbitales, nombres_cometas, axis_range):
         orbit_x, orbit_y, orbit_z = orbitales[nombre]
         fig.add_trace(go.Scatter3d(x=orbit_x, y=orbit_y, z=orbit_z,
                                      mode='lines',
-                                     name=f'Órbita de {nombre}',
-                                     line=dict(width=2, dash='dot', color=color_planeta)))
+                                     name=f'Orbit of {nombre}',
+                                     line=dict(width=3, dash='dot', color=color_planeta)))
 
     # Configurar el layout para tener fondo negro y líneas blancas
     fig.update_layout(scene=dict(
